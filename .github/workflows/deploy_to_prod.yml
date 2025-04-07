@@ -27,5 +27,8 @@ jobs:
         run: mvn clean
       - name: Executar Testes
         run: mvn test
+      - name: Gerar pacote
+        run: mvn package -DskipTests
+
 
 
