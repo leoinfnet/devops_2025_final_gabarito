@@ -25,5 +25,7 @@ jobs:
             mvn -version
       - name: Limpar diretorio
         run: mvn clean
+      - name: Executar Testes
+        run: mvn test
 
 
