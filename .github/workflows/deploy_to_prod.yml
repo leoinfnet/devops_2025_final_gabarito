@@ -27,11 +27,25 @@ jobs:
         run: mvn clean
       - name: Executar Testes
         run: mvn test
-      - name: Gerar pacote
-        run: mvn package -DskipTests
-      - name: Copiando artefato
+      - name: Incrementar versão (patch)
+        id: increment-version
         run: |
-          cp target/cervejaria-acme-0.0.1-SNAPSHOT.jar docker/cervejaria-acme-0.0.1-SNAPSHOT.jar
+          current=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "Versão atual: $current"
+        
+          IFS='.' read -r major minor patch <<< "$current"
+          next="$major.$minor.$((patch + 1))"
+          echo "Nova versão: $next"
+        
+          mvn versions:set -DnewVersion=$next
+          echo "new_version=$next" >> "$GITHUB_OUTPUT"
+
+      - name: Confirmar versão após incremento
+        run: echo "Nova versão é: ${{ steps.increment-version.outputs.new_version }}"
+
+      - name: Build do projeto
+        run: mvn package -DskipTests
+
         
     
 
