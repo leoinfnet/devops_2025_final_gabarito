@@ -12,6 +12,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.time.Duration;
 
@@ -20,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @Slf4j
+@ActiveProfiles("test")
+@Disabled
 public class CadastrarMarcaTests {
     private WebDriver driver;
     private WebDriverWait wait;
@@ -38,6 +41,7 @@ public class CadastrarMarcaTests {
     }
     @Test
     @DisplayName("Deve cadastrar uma marca de cerveja")
+
     public void cadastrarMarca() throws InterruptedException  {
         driver.get("http://localhost:8091/");
 

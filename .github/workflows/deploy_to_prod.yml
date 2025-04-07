@@ -19,4 +19,11 @@ jobs:
         with:
           maven-version: 3.8.2
 
+      - name: Verificar versões da JVM e Maven
+        run: |
+            java -version
+            mvn -version
+      - name: Limpar diretorio
+        run: mvn clean
+
 

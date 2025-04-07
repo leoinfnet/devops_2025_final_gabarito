@@ -31,10 +31,9 @@
         </encoder>
     </appender>
 
-    <springProfile name="default">
+    <springProfile name="default,test">
         <root level="INFO">
             <appender-ref ref="STDOUT"/>
-            <appender-ref ref="PAPERTRAIL"/>
         </root>
     </springProfile>
 

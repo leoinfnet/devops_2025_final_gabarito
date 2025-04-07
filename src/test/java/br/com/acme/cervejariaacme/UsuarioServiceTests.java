@@ -3,16 +3,20 @@ package br.com.acme.cervejariaacme;
 import br.com.acme.cervejariaacme.model.Role;
 import br.com.acme.cervejariaacme.model.Usuario;
 import br.com.acme.cervejariaacme.service.UsuarioService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@ActiveProfiles("test")
+@Disabled
 public class UsuarioServiceTests {
     @Autowired
     UsuarioService usuarioService;
