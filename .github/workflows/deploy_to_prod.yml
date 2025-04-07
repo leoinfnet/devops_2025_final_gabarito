@@ -35,7 +35,7 @@ jobs:
         
           IFS='.' read -r major minor patch <<< "$current"
           new_major=$((major + 1))
-          next="$new_major.$minor.$patch
+          next="$major.$minor.$((patch + 1))"
           echo "Nova versão: $next"
         
           mvn versions:set -DnewVersion=$next
@@ -49,8 +49,7 @@ jobs:
         run: mvn package -DskipTests
       - name: Copiar artefato
         run: |
-          cp target/*.jar docker/app.jar
-          
+          cp target/*.jar docker/app.jar   
 
         
     
