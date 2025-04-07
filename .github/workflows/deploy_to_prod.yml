@@ -41,7 +41,8 @@ jobs:
           echo "new_version=$next" >> "$GITHUB_OUTPUT"
 
       - name: Confirmar versão após incremento
-        run: echo "Nova versão é: ${{ steps.increment-version.outputs.new_version }}"
+        run: |
+            echo "Nova versão é: ${{ steps.increment-version.outputs.new_version }}"
 
       - name: Build do projeto
         run: mvn package -DskipTests
