@@ -20,7 +20,9 @@ jobs:
         uses: stCarolas/setup-maven@v5
         with:
           maven-version: 3.8.2
-
+      - name: Usar versão como env
+        run:
+          echo "Versão atual: $VERSAO"
       - name: Verificar versões da JVM e Maven
         run: |
             java -version
