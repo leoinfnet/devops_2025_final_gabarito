@@ -31,7 +31,6 @@ jobs:
         run: mvn package -DskipTests
       - name: Copiando artefato
         run: |
-          rm docker/*.jar
           cp target/cervejaria-acme-0.0.1-SNAPSHOT.jar docker/cervejaria-acme-0.0.1-SNAPSHOT.jar
         
     
