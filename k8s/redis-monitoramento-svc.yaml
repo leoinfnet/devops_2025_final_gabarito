@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: cervejaria
+  name: redis-monitoramento-svc
+spec:
+  selector:
+    app: redis
+  type: NodePort
+  ports:
+  - protocol: TCP
+    targetPort: 9121
+    port: 9121
+    nodePort: 30007

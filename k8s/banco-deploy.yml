@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: cervejaria
+  name: banco-acme-deploy
+  labels:
+    app: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database
+  template:
+    metadata:
+      name: banco-pod
+      labels:
+        app: database
+    spec:
+      containers:
+        - name: banco-acme
+          image: leogloriainfnet/acme-database:latest
+        - name: postgres-exporter
+          image: quay.io/prometheuscommunity/postgres-exporter
+          env:
+            - name: DATA_SOURCE_URI
+              value: "localhost:5432/acme?sslmode=disable"
+            - name: DATA_SOURCE_USER
+              value: "postgres"
+            - name: DATA_SOURCE_PASS
+              value: "123456"
+
+

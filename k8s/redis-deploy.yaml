@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-acme
+  namespace: cervejaria
+  labels:
+    app: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      name: redis-acme
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis-acme
+          image: redis
+          imagePullPolicy: IfNotPresent
+        - name: redis-exporter
+          image: oliver006/redis_exporter:latest
+          ports:
+            - containerPort: 9121
+          args:
+            - "--redis.addr=redis://localhost:6379"
+      restartPolicy: Always
