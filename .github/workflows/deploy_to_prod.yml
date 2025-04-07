@@ -34,7 +34,8 @@ jobs:
           echo "Versão atual: $current"
         
           IFS='.' read -r major minor patch <<< "$current"
-          next="$major.$minor.$((patch + 1))"
+          new_major=$((major + 1))
+          next="$new_major.$minor.$patch
           echo "Nova versão: $next"
         
           mvn versions:set -DnewVersion=$next
