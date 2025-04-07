@@ -56,7 +56,9 @@ jobs:
         run: |
           echo ${{ secrets.DOCKER_TOKEN }} | docker login --username ${{ secrets.DOCKERHUB_USER }} --password-stdin
       - name: Build Docker image
-        run: docker build . -f docker/Dockerfile -t leogloriainfnet/cervejaria:$VERSAO
+        run: docker build . -f docker/Dockerfile -t cervejaria:$VERSAO
+      - name: TAG
+        run: docker tag cervejaria:$VERSAO leogloriainfnet/cervejaria:$VERSAO
       - name: Push Image
         run: docker push leogloriainfnet/cervejaria:$VERSAO
         
