@@ -57,7 +57,36 @@ jobs:
       - name: Docker Login
         run: |
           echo ${{ secrets.DOCKER_TOKEN }} | docker login --username ${{ secrets.DOCKERHUB_USER }} --password-stdin
+      - name: Incrementar e atualizar BUILD_VERSION
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN_ADMIN }}
+          VAR_NAME: "BUILD_VERSION"
+          REPO: ${{ github.repository }}
+        run: |          
+          CURRENT_VERSION=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+          -H "Accept: application/vnd.github+json" \
+          https://api.github.com/repos/$REPO/actions/variables/$IMAGE_VERSION| jq -r '.value')
+          
+          echo "📦 Versão atual: $CURRENT_VERSION"
+          
+          # Extrai MAJOR, MINOR, PATCH
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
+          
+          # Incrementa MAJOR (você pode trocar pra MINOR ou PATCH se quiser)
+          NEW_MAJOR=$((MAJOR + 1))
+          NEW_VERSION="${NEW_MAJOR}.0.0"
+          
+          echo "🚀 Nova versão: $NEW_VERSION"
+          
+          # Atualiza variável no repositório
+          curl -X PATCH \
+          -H "Authorization: Bearer $GH_TOKEN" \
+          -H "Accept: application/vnd.github+json" \
+          https://api.github.com/repos/$REPO/actions/variables/$VAR_NAME \
+          -d "{\"name\":\"$IMAGE_VERSION\", \"value\":\"$NEW_VERSION\"}"
       - name: Build Docker image
+        env:
+          VERSAO: ${{ vars.IMAGE_VERSION }}
         run: docker build . -f docker/Dockerfile -t cervejaria:$VERSAO
       - name: TAG
         run: docker tag cervejaria:$VERSAO leogloriainfnet/cervejaria:$VERSAO
