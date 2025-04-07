@@ -1,4 +1,6 @@
 name: Deploy to prod
+env:
+  VERSAO: ${{ vars.BUILD_VERSION }}
 on:
   push:
     branches:
@@ -50,7 +52,13 @@ jobs:
       - name: Copiar artefato
         run: |
           cp target/*.jar docker/app.jar   
-
+      - name: Docker Login
+        run: |
+          echo ${{ secrets.DOCKER_TOKEN }} | docker login --username ${{ secrets.DOCKERHUB_USER }} --password-stdin
+      - name: Build Docker image
+        run: docker build . -f docker/Dockerfile -t leogloriainfnet/cervejaria:$VERSAO
+      - name: Push Image
+        run: docker push leogloriainfnet/cervejaria:$VERSAO
         
     
 

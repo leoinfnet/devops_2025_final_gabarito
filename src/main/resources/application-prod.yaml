@@ -1,7 +1,7 @@
 spring:
   datasource:
     #url: jdbc:h2:mem:cervejaria
-    url: jdbc:postgresql://10.106.201.218:5432/acme
+    url: jdbc:postgresql://10.111.172.37:5432/acme
     username: postgres
     password: 123456
     driver-class-name: org.postgresql.Driver
@@ -13,7 +13,7 @@ spring:
       ddl-auto: none
   data:
     redis:
-      host: 10.97.30.128
+      host: 10.105.145.75
       port: 6379
       timeout: 1800
       repositories:
