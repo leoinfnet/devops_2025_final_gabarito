@@ -47,6 +47,10 @@ jobs:
 
       - name: Build do projeto
         run: mvn package -DskipTests
+      - name: Copiar artefato
+        run: |
+          cp target/*.jar docker/app.jar
+          
 
         
     
