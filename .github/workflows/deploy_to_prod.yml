@@ -1,6 +1,6 @@
 name: Deploy to prod
 env:
-  VERSAO: ${{ vars.BUILD_VERSION }}
+  VERSAO: ${{ vars.IMAGE_VERSION }}
 on:
   push:
     branches:
